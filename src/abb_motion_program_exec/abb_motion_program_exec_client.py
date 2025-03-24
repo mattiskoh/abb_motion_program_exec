@@ -104,6 +104,8 @@ class MotionProgram:
     EGMRunPose = command_append_method(egm_commands.EGMRunPoseCommand)
     EGMMoveL = command_append_method(egm_commands.EGMMoveLCommand)
     EGMMoveC = command_append_method(egm_commands.EGMMoveCCommand)
+    
+    SetDO = command_append_method(commands.SetDOCommand)
 
     def __init__(self,first_cmd_num: int=1, tool: tooldata = None, wobj: wobjdata = None, timestamp: str = None, 
         egm_config: Union[EGMStreamConfig,EGMJointTargetConfig,EGMPoseTargetConfig,EGMPathCorrectionConfig] = None, 

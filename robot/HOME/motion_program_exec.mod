@@ -11,6 +11,7 @@ MODULE motion_program_exec
     CONST num MOTION_PROGRAM_CMD_CIRMODE:=6;
     CONST num MOTION_PROGRAM_CMD_SYNCMOVEON:=7;
     CONST num MOTION_PROGRAM_CMD_SYNCMOVEOFF:=8;
+    CONST num MOTION_PROGRAM_CMD_SETDO:=9; !digital output
 
     LOCAL VAR iodev motion_program_io_device;
     LOCAL VAR rawbytes motion_program_bytes;
@@ -277,6 +278,8 @@ MODULE motion_program_exec
         CASE MOTION_PROGRAM_CMD_SYNCMOVEOFF:
             motion_cmd_num_history{local_cmd_ind}:=-1;
             RETURN try_motion_program_sync_move_off(cmd_num);
+        CASE MOTION_PROGRAM_CMD_SETDO:
+            RETURN set_do(cmd_num);
         DEFAULT:
             RAISE ERR_INVALID_OPCODE;
         ENDTEST
@@ -364,7 +367,23 @@ MODULE motion_program_exec
         RETURN TRUE;
 
     ENDFUNC
+    
+    FUNC bool set_do(num cmd_num)
+        VAR string signal_name;
+        VAR signaldo signal;
+        VAR num signal_value;
+        IF NOT (
+        try_motion_program_read_string(signal_name)
+        AND try_motion_program_read_num(signal_value)
+        ) THEN
+            RETURN FALSE;
+        ENDIF
+        AliasIO signal_name, signal;
+        setDO signal, signal_value;
+        RETURN TRUE;
 
+    ENDFUNC
+    
     FUNC bool try_motion_program_wait(num cmd_num)
         VAR num t;
         IF NOT try_motion_program_read_num(t) THEN
