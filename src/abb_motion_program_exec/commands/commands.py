@@ -220,8 +220,6 @@ class SetDOCommand(CommandBase):
 class MoveLRelTool(CommandBase):
     command_opcode = 10
 
-    signal_name: str
-
     def write_params(self, f: io.IOBase):
         pass
 
