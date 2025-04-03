@@ -12,6 +12,7 @@ MODULE motion_program_exec
     CONST num MOTION_PROGRAM_CMD_SYNCMOVEON:=7;
     CONST num MOTION_PROGRAM_CMD_SYNCMOVEOFF:=8;
     CONST num MOTION_PROGRAM_CMD_SETDO:=9; !digital output
+    CONST num MOTION_PROGRAM_CMD_MOVELRELTOOL:=10; 
 
     LOCAL VAR iodev motion_program_io_device;
     LOCAL VAR rawbytes motion_program_bytes;
@@ -382,6 +383,16 @@ MODULE motion_program_exec
         setDO signal, signal_value;
         RETURN TRUE;
 
+    ENDFUNC
+    
+    FUNC bool move_reltool(num cmd_num)
+        VAR robtarget rt;
+
+        rt := CRobT(\Tool:=motion_program_tool,\WObj:=motion_program_wobj);
+        ConfL\Off;
+        MoveL RelTool(rt, 0, 0, -100), v100, fine, motion_program_tool;
+        ConfL\On;
+        RETURN TRUE;
     ENDFUNC
     
     FUNC bool try_motion_program_wait(num cmd_num)

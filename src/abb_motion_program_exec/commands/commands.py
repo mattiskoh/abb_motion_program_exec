@@ -215,3 +215,17 @@ class SetDOCommand(CommandBase):
         return f"SetDO '{self.signal_name}' {self.signal_value};"
 
     _append_method_doc = ""
+    
+@dataclass
+class MoveLRelTool(CommandBase):
+    command_opcode = 10
+
+    signal_name: str
+
+    def write_params(self, f: io.IOBase):
+        pass
+
+    def to_rapid(self, **kwargs):
+        return "MoveL RelTool "
+
+    _append_method_doc = ""
