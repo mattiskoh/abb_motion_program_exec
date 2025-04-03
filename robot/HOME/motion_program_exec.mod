@@ -393,7 +393,7 @@ MODULE motion_program_exec
 
         rt := CRobT(\Tool:=motion_program_tool,\WObj:=motion_program_wobj);
         ConfL\Off;
-        MoveL RelTool(rt, 0, 0, -100), v100, fine, motion_program_tool;
+        MoveL RelTool(rt, 0, 0, -100), v100, fine, motion_program_tool \WObj:=motion_program_wobj;
         ConfL\On;
         RETURN TRUE;
     ENDFUNC
