@@ -281,6 +281,9 @@ MODULE motion_program_exec
             RETURN try_motion_program_sync_move_off(cmd_num);
         CASE MOTION_PROGRAM_CMD_SETDO:
             RETURN set_do(cmd_num);
+        Case MOTION_PROGRAM_CMD_MOVELRELTOOL:
+            motion_cmd_num_history{local_cmd_ind}:=-1;
+            RETURN move_reltool(cmd_num);
         DEFAULT:
             RAISE ERR_INVALID_OPCODE;
         ENDTEST
