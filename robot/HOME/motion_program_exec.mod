@@ -334,6 +334,7 @@ MODULE motion_program_exec
         VAR robtarget rt;
         VAR speeddata sd;
         VAR zonedata zd;
+        ConfL\Off;
         IF NOT (
         try_motion_program_read_rt(rt)
         AND try_motion_program_read_sd(sd)
@@ -346,6 +347,7 @@ MODULE motion_program_exec
         ELSE
             TriggL rt,sd,motion_trigg_data,zd,motion_program_tool\WObj:=motion_program_wobj;
         ENDIF
+        ConfL\On;
         RETURN TRUE;
 
     ENDFUNC
