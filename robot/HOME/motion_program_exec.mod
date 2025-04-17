@@ -341,11 +341,13 @@ MODULE motion_program_exec
         ) THEN
             RETURN FALSE;
         ENDIF
+        ConfL \Off;
         IF IsSyncMoveOn() THEN
             TriggL rt,\ID:=cmd_num,sd,motion_trigg_data,zd,motion_program_tool\Wobj:=motion_program_wobj;
         ELSE
             TriggL rt,sd,motion_trigg_data,zd,motion_program_tool\WObj:=motion_program_wobj;
         ENDIF
+        ConfL \On;
         RETURN TRUE;
 
     ENDFUNC
